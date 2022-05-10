@@ -3,9 +3,11 @@ const request = require('request');
 const url =
   'http://api.weatherstack.com/current?access_key=9d9a0af23eff718899fc101ad063adeb&query=New York';
 
-request({ url: url }, (error, response) => {
-  const data = JSON.parse(response.body);
-  console.log(data.current);
+request({ url: url, json: true }, (error, response) => {
+  // console.log(response.body.current);
+  console.log(
+    `It is currently ${response.body.current.temperature} degrees out. It feels like ${response.body.current.feelslike} degrees out.`
+  );
 });
 
 // console.log('Starting');
