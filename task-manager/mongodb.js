@@ -1,10 +1,14 @@
 require('dotenv').config();
 // CRUD create read update delete
 
-const MongoClient = require('mongodb').MongoClient;
+const { MongoClient, ObjectId } = require('mongodb');
 
 const connectionURL = process.env.MONGO_URL;
 const databaseName = 'task-manager';
+
+const id = new ObjectId();
+console.log(id.id.length);
+console.log(id.toHexString().length);
 
 MongoClient.connect(connectionURL, (error, client) => {
   if (error) {
@@ -15,8 +19,8 @@ MongoClient.connect(connectionURL, (error, client) => {
 
   // db.collection('users').insertOne(
   //   {
-  //     name: 'Andrew',
-  //     age: 27,
+  //     name: 'Vikram',
+  //     age: 26,
   //   },
   //   (error, result) => {
   //     if (error) {
@@ -47,27 +51,27 @@ MongoClient.connect(connectionURL, (error, client) => {
   //   }
   // );
 
-  db.collection('tasks').insertMany(
-    [
-      {
-        description: 'Buy milk',
-        completed: false,
-      },
-      {
-        description: 'Cook a meal',
-        completed: false,
-      },
-      {
-        description: 'Wash the dishes',
-        completed: true,
-      },
-    ],
-    (error, result) => {
-      if (error) {
-        return console.log('Unable to insert tasks!');
-      }
+  // db.collection('tasks').insertMany(
+  //   [
+  //     {
+  //       description: 'Buy milk',
+  //       completed: false,
+  //     },
+  //     {
+  //       description: 'Cook a meal',
+  //       completed: false,
+  //     },
+  //     {
+  //       description: 'Wash the dishes',
+  //       completed: true,
+  //     },
+  //   ],
+  //   (error, result) => {
+  //     if (error) {
+  //       return console.log('Unable to insert tasks!');
+  //     }
 
-      console.log(result);
-    }
-  );
+  //     console.log(result);
+  //   }
+  // );
 });
