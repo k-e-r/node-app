@@ -6,10 +6,6 @@ const { MongoClient, ObjectId } = require('mongodb');
 const connectionURL = process.env.MONGO_URL;
 const databaseName = 'task-manager';
 
-const id = new ObjectId();
-console.log(id.id.length);
-console.log(id.toHexString().length);
-
 MongoClient.connect(connectionURL, (error, client) => {
   if (error) {
     return console.log('Unable to connect to database!');
@@ -17,61 +13,46 @@ MongoClient.connect(connectionURL, (error, client) => {
 
   const db = client.db(databaseName);
 
-  // db.collection('users').insertOne(
-  //   {
-  //     name: 'Vikram',
-  //     age: 26,
-  //   },
-  //   (error, result) => {
+  // db.collection('users').findOne(
+  //   { _id: new ObjectId('62868145c771cab1afb6a90b') },
+  //   (error, user) => {
   //     if (error) {
-  //       return console.log('Unable to insert user');
+  //       return console.log('Unable to fetch');
   //     }
 
-  //     console.log(result);
+  //     console.log(user);
   //   }
   // );
 
-  // db.collection('users').insertMany(
-  //   [
-  //     {
-  //       name: 'Jen',
-  //       age: 28,
-  //     },
-  //     {
-  //       name: 'Gunther',
-  //       age: 27,
-  //     },
-  //   ],
-  //   (error, result) => {
-  //     if (error) {
-  //       return console.log('Unable to insert documents!');
-  //     }
+  // db.collection('users')
+  //   .find({ age: 27 })
+  //   .toArray((error, users) => {
+  //     console.log(users);
+  //   });
 
-  //     console.log(result);
-  //   }
-  // );
+  // db.collection('users')
+  //   .countDocuments({ age: 27 })
+  //   .then((count) => console.log(count))
+  //   .catch((error) => console.log(error));
 
-  // db.collection('tasks').insertMany(
-  //   [
-  //     {
-  //       description: 'Buy milk',
-  //       completed: false,
-  //     },
-  //     {
-  //       description: 'Cook a meal',
-  //       completed: false,
-  //     },
-  //     {
-  //       description: 'Wash the dishes',
-  //       completed: true,
-  //     },
-  //   ],
-  //   (error, result) => {
-  //     if (error) {
-  //       return console.log('Unable to insert tasks!');
-  //     }
+  db.collection('tasks').findOne(
+    { _id: new ObjectId('628681ec698a6879a3894e06') },
+    (error, user) => {
+      if (error) {
+        return console.log('Unable to fetch');
+      }
 
-  //     console.log(result);
-  //   }
-  // );
+      console.log(user);
+    }
+  );
+
+  db.collection('tasks')
+    .find({ completed: false })
+    .toArray((error, tasks) => {
+      if (error) {
+        return console.log('Unable to fetch');
+      }
+
+      console.log(tasks);
+    });
 });
